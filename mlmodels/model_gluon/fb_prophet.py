@@ -29,9 +29,12 @@ def get_dataset(data_pars):
     # if both train and test are provided
     if data_pars["test_data_path"]:
         # ds and y are hardcoded because it is restriction in model
-        train_df = pd.read_csv(data_pars["train_data_path"], parse_dates=True)[col]
+        ## Added By Asma Damani
+        train_data_path = path_norm(data_pars["train_data_path"])
+        test_data_path = path_norm(data_pars["test_data_path"])
+        train_df = pd.read_csv(train_data_path, parse_dates=True)[col]
         train_df.rename(columns={date_col: "ds", train_col: "y"}, inplace=True)
-        test_df = pd.read_csv(data_pars["test_data_path"], parse_dates=True)[col]
+        test_df = pd.read_csv(test_data_path, parse_dates=True)[col]
         test_df.rename(columns={date_col: "ds", train_col: "y"}, inplace=True)
         return train_df, test_df
 
